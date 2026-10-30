@@ -1,0 +1,58 @@
+---
+layout: runbook
+title: '#4471 · two date bugs in one ticket'
+owner: support desk
+status: known
+reviewed: 2026-10-30
+signature: Kaggee
+---
+
+<script>
+  import CauseTable from '#lib/kb/CauseTable.svelte';
+  import QueueTimeline from '#lib/kb/QueueTimeline.svelte';
+  import Callout from '#lib/kb/Callout.svelte';
+  import RenderStamp from '#lib/kb/RenderStamp.svelte';
+</script>
+
+Since April, people have reported bookings landing on the wrong day. The desk merged the
+reports into #4471. The export has overlapping rows, so repeated report IDs are counted once.
+
+The reports describe two causes. The shared parser reads every date month first, so it flips
+dates for day-first tenants. Separately, booking-v3 tells people to enter month first while
+the form interprets their input in the tenant's day-first locale. These need separate fixes.
+
+<Callout>
+Known reports, split by cause below. Counts use unique report IDs and the tenant's configured
+locale and form, not the intake tag or subject line.
+</Callout>
+
+## What was merged
+
+<CauseTable ticket={4471} />
+
+## Follow-up issues
+
+- Parser: [Parse dates in the tenant's locale](https://github.com/Kaggee/mega-challenges/issues/1).
+- Booking-v3 hint: [Match the date hint to the tenant locale](https://github.com/Kaggee/mega-challenges/issues/2).
+
+## Since April
+
+<QueueTimeline ticket={4471} />
+
+## Triage notes
+
+- **Parser:** This cause spans the tenants and reports from app, email, and form.
+- **Booking-v3 hint:** This cause appears in Alder Physio, Copper Studio, and Pale Harbour;
+  these reports arrived through the form.
+- Intake tags do not determine the cause. The tenant locale and booking form do.
+- Reports listed in `desk-notes.json` as one-day moves remain within the parser group; the desk
+  note does not establish a separate cause.
+
+## Lessons
+
+- A large merged ticket can contain more than one bug. Classify by tenant configuration and
+  report path before filing issues.
+- Deduplicate overlapping exports by report ID before counting.
+- Write the page while the queue is still in your head.
+
+<RenderStamp {signature} />

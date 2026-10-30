@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>#4471 · two date bugs in one ticket · support kb</title>
+<style>
+  :root{--bg:#fbfaf7;--fg:#1d1d1b;--muted:#6b6a66;--line:#e3e0d8;--accent:#2f6f5e;--warn:#b4501f;--warn-bg:#fbeee6;--mono:ui-monospace,'Cascadia Code',Menlo,monospace}
+  *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,sans-serif}
+  main{max-width:760px;margin:0 auto;padding:2rem 16px 4rem}.crumb{font:.8rem var(--mono);color:var(--muted)}h1{margin:.25rem 0 .5rem;line-height:1.2}
+  .meta{display:flex;flex-wrap:wrap;gap:.5rem 1rem;color:var(--muted);font-size:.85rem}.status{border:1px solid var(--line);border-radius:99px;padding:0 .6rem}
+  .callout{border-left:4px solid var(--accent);background:#eef5f2;padding:.8rem 1rem;border-radius:4px}table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.92rem}th,td{border-bottom:1px solid var(--line);padding:.35rem .5rem;text-align:left}code{font:.88em var(--mono)}.wrong td{background:var(--warn-bg)}
+  .muted{color:var(--muted);font-size:.85rem}svg{width:100%;max-width:640px}.in{fill:var(--warn)}.merged{fill:var(--accent)}svg text{font:8px var(--mono);fill:var(--muted);text-anchor:middle}.stamp{margin:2rem 0 0;font:.85rem var(--mono);color:var(--muted)}.stamp b{color:var(--accent);letter-spacing:.04em}footer{margin-top:3rem;color:var(--muted);font-size:.8rem;border-top:1px solid var(--line);padding-top:1rem}
+</style>
+<main>
+  <header>
+    <div class="crumb">support desk · kb</div>
+    <h1>#4471 · two date bugs in one ticket</h1>
+    <p class="meta"><span>owner <b>support desk</b></span><span class="status">known</span><span>reviewed 2026-10-30</span></p>
+  </header>
+  <p>Since April, people have reported bookings landing on the wrong day. The desk merged the reports into #4471. The export has overlapping rows, so repeated report IDs are counted once.</p>
+  <p>The reports describe two causes. The shared parser reads every date month first, so it flips dates for day-first tenants. Separately, booking-v3 tells people to enter month first while the form interprets their input in the tenant's day-first locale. These need separate fixes.</p>
+  <div class="callout">Known reports, split by cause below. Counts use unique report IDs and the tenant's configured locale and form, not the intake tag or subject line.</div>
+  <h2>What was merged</h2>
+  <p><strong>412</strong> unique reports merged into #4471 (<strong>15</strong> duplicate rows removed) · <strong>2 causes</strong></p>
+  <table>
+    <thead><tr><th>cause</th><th>reports</th><th>tagged as</th><th>tenants</th><th>seen</th><th>classification</th></tr></thead>
+    <tbody>
+      <tr><td><code>parser</code></td><td>379</td><td>parser ×356 · hint ×23</td><td>11</td><td>2026-04-01 → 2026-10-04</td><td>#4471</td></tr>
+      <tr class="wrong"><td><code>hint</code></td><td>33</td><td>parser ×15 · hint ×18</td><td>3</td><td>2026-04-17 → 2026-09-22</td><td>separate issue</td></tr>
+    </tbody>
+  </table>
+  <p class="muted">5 reports read as a one-day move; filed under <code>parser</code> by tenant.</p>
+  <h2>Follow-up issues</h2>
+  <ul><li>Parser: <a href="https://github.com/Kaggee/mega-challenges/issues/1">Parse dates in the tenant's locale</a>.</li><li>Booking-v3 hint: <a href="https://github.com/Kaggee/mega-challenges/issues/2">Match the date hint to the tenant locale</a>.</li></ul>
+  <h2>Since April</h2>
+  <figure><svg id="timeline" viewBox="0 0 648 140" role="img" aria-label="reports received and merged into #4471, per week"></svg><figcaption class="muted"><span class="in">■</span> received · <span class="merged">■</span> merged into #4471 · per week</figcaption></figure>
+  <h2>Triage notes</h2>
+  <ul>
+    <li><b>Parser:</b> This cause spans the tenants and reports from app, email, and form.</li>
+    <li><b>Booking-v3 hint:</b> This cause appears in Alder Physio, Copper Studio, and Pale Harbour; these reports arrived through the form.</li>
+    <li>Intake tags do not determine the cause. The tenant locale and booking form do.</li>
+    <li>Reports listed in <code>desk-notes.json</code> as one-day moves remain within the parser group; the desk note does not establish a separate cause.</li>
+  </ul>
+  <h2>Lessons</h2>
+  <ul><li>A large merged ticket can contain more than one bug. Classify by tenant configuration and report path before filing issues.</li><li>Deduplicate overlapping exports by report ID before counting.</li><li>Write the page while the queue is still in your head.</li></ul>
+  <p class="stamp">desk ref <b>DR-109S-ZW9N</b></p>
+  <footer>Pages are written by people. Tables and charts are built from data at render time.</footer>
+</main>
+<script>
+const weeks=[['03-30',7,0],['04-06',11,0],['04-13',14,0],['04-20',19,0],['04-27',16,0],['05-04',12,0],['05-11',8,0],['05-18',12,0],['05-25',14,0],['06-01',17,0],['06-08',16,0],['06-15',17,0],['06-22',11,0],['06-29',15,189],['07-06',19,18],['07-13',17,18],['07-20',15,15],['07-27',19,19],['08-03',8,8],['08-10',15,15],['08-17',20,20],['08-24',14,14],['08-31',21,21],['09-07',20,20],['09-14',15,15],['09-21',25,23],['09-28',15,17]];
+const svg=document.querySelector('#timeline'),ns='http://www.w3.org/2000/svg',max=Math.max(...weeks.flatMap(w=>[w[1],w[2]]));
+weeks.forEach((w,i)=>{for(const [j,n,cls] of [[0,w[1],'in'],[1,w[2],'merged']]){const r=document.createElementNS(ns,'rect');r.setAttribute('class',cls);r.setAttribute('x',i*24+2+j*10);r.setAttribute('y',110-n/max*100);r.setAttribute('width',9);r.setAttribute('height',n/max*100);svg.append(r)}if(i%4===0){const t=document.createElementNS(ns,'text');t.setAttribute('x',i*24+12);t.setAttribute('y',128);t.textContent=w[0];svg.append(t)}});
+</script>
+</html>
