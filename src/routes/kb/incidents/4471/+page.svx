@@ -45,8 +45,8 @@ locale and form, not the intake tag or subject line.
 - **Booking-v3 hint:** This cause appears in Alder Physio, Copper Studio, and Pale Harbour;
   these reports arrived through the form.
 - Intake tags do not determine the cause. The tenant locale and booking form do.
-- Reports listed in `desk-notes.json` as one-day moves remain within the parser group; the desk
-  note does not establish a separate cause.
+- The desk flags some reports as one-day moves. The supplied classifier assigns them to parser
+  by tenant; their narratives still need review before treating them as fully explained.
 
 ## Lessons
 

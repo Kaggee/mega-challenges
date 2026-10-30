@@ -13,9 +13,9 @@
 </style>
 <main>
   <header>
-    <div class="crumb">support desk · kb</div>
+    <a class="crumb" href="/kb">support desk · kb</a>
     <h1>#4471 · two date bugs in one ticket</h1>
-    <p class="meta"><span>owner <b>support desk</b></span><span class="status">known</span><span>reviewed 2026-10-30</span></p>
+    <p class="meta"><span>owner <b>support desk</b></span><span class="status">known</span><span>reviewed 2026-10-30 · 0 days ago</span></p>
   </header>
   <p>Since April, people have reported bookings landing on the wrong day. The desk merged the reports into #4471. The export has overlapping rows, so repeated report IDs are counted once.</p>
   <p>The reports describe two causes. The shared parser reads every date month first, so it flips dates for day-first tenants. Separately, booking-v3 tells people to enter month first while the form interprets their input in the tenant's day-first locale. These need separate fixes.</p>
@@ -23,10 +23,10 @@
   <h2>What was merged</h2>
   <p><strong>412</strong> unique reports merged into #4471 (<strong>15</strong> duplicate rows removed) · <strong>2 causes</strong></p>
   <table>
-    <thead><tr><th>cause</th><th>reports</th><th>tagged as</th><th>tenants</th><th>seen</th><th>classification</th></tr></thead>
+    <thead><tr><th>cause</th><th>reports</th><th>tagged as</th><th>tenants</th><th>seen</th><th>ticket</th></tr></thead>
     <tbody>
       <tr><td><code>parser</code></td><td>379</td><td>parser ×356 · hint ×23</td><td>11</td><td>2026-04-01 → 2026-10-04</td><td>#4471</td></tr>
-      <tr class="wrong"><td><code>hint</code></td><td>33</td><td>parser ×15 · hint ×18</td><td>3</td><td>2026-04-17 → 2026-09-22</td><td>separate issue</td></tr>
+      <tr class="wrong"><td><code>hint</code></td><td>33</td><td>hint ×18 · parser ×15</td><td>3</td><td>2026-04-17 → 2026-09-22</td><td>separate issue</td></tr>
     </tbody>
   </table>
   <p class="muted">5 reports read as a one-day move; filed under <code>parser</code> by tenant.</p>
@@ -39,7 +39,7 @@
     <li><b>Parser:</b> This cause spans the tenants and reports from app, email, and form.</li>
     <li><b>Booking-v3 hint:</b> This cause appears in Alder Physio, Copper Studio, and Pale Harbour; these reports arrived through the form.</li>
     <li>Intake tags do not determine the cause. The tenant locale and booking form do.</li>
-    <li>Reports listed in <code>desk-notes.json</code> as one-day moves remain within the parser group; the desk note does not establish a separate cause.</li>
+    <li>The desk flags some reports as one-day moves. The supplied classifier assigns them to parser by tenant; their narratives still need review before treating them as fully explained.</li>
   </ul>
   <h2>Lessons</h2>
   <ul><li>A large merged ticket can contain more than one bug. Classify by tenant configuration and report path before filing issues.</li><li>Deduplicate overlapping exports by report ID before counting.</li><li>Write the page while the queue is still in your head.</li></ul>

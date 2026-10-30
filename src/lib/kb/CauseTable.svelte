@@ -26,7 +26,7 @@
 
 <table>
   <thead>
-    <tr><th>cause</th><th>reports</th><th>tagged as</th><th>tenants</th><th>seen</th><th></th></tr>
+    <tr><th>cause</th><th>reports</th><th>tagged as</th><th>tenants</th><th>seen</th><th>ticket</th></tr>
   </thead>
   <tbody>
     {#each groups as g (g.cause)}
