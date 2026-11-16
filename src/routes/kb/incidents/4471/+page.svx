@@ -4,7 +4,7 @@ title: '#4471 · two date bugs in one ticket'
 owner: support desk
 status: closed
 reviewed: 2026-11-16
-signature: Kaggee
+signature: v1.eyJzdWIiOiIzMjU0IiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYXQiOjE3OTQ4MzgxODQsImV4cCI6MTc5NDkyNDU4NH0.iw442G5mFD5zcxAWbss7UzdHVNmoO6jd6A2z03FW9gI
 ---
 
 <script>
