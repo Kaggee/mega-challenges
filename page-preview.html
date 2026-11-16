@@ -15,10 +15,10 @@
   <header>
     <a class="crumb" href="/kb">support desk · kb</a>
     <h1>#4471 · two date bugs in one ticket</h1>
-    <p class="meta"><span>owner <b>support desk</b></span><span class="status">known</span><span>reviewed 2026-10-30 · 0 days ago</span></p>
+    <p class="meta"><span>owner <b>support desk</b></span><span class="status">closed</span><span>reviewed 2026-11-16</span></p>
   </header>
-  <p>Since April, people have reported bookings landing on the wrong day. The desk merged the reports into #4471. The export has overlapping rows, so repeated report IDs are counted once.</p>
-  <p>The reports describe two causes. The shared parser reads every date month first, so it flips dates for day-first tenants. Separately, booking-v3 tells people to enter month first while the form interprets their input in the tenant's day-first locale. These need separate fixes.</p>
+  <p>Since April, people have reported bookings landing on the wrong day. The desk merged the reports into #4471 and closed it on 05 Oct. The export has overlapping rows, so repeated report IDs are counted once.</p>
+  <p>The reports describe two causes. The shared parser read every date month first, so it flipped dates for day-first tenants; engineering fixed it to parse DD/MM for EU locales. Separately, booking-v3 told people to enter month first while the form interpreted their input in the tenant's day-first locale. The form was retired, so the desk closed that issue as won't fix.</p>
   <div class="callout">Known reports, split by cause below. Counts use unique report IDs and the tenant's configured locale and form, not the intake tag or subject line.</div>
   <h2>What was merged</h2>
   <p><strong>412</strong> unique reports merged into #4471 (<strong>15</strong> duplicate rows removed) · <strong>2 causes</strong></p>
@@ -30,8 +30,8 @@
     </tbody>
   </table>
   <p class="muted">5 reports read as a one-day move; filed under <code>parser</code> by tenant.</p>
-  <h2>Follow-up issues</h2>
-  <ul><li>Parser: <a href="https://github.com/Kaggee/mega-challenges/issues/1">Parse dates in the tenant's locale</a>.</li><li>Booking-v3 hint: <a href="https://github.com/Kaggee/mega-challenges/issues/2">Match the date hint to the tenant locale</a>.</li></ul>
+  <h2>Desk outcomes</h2>
+  <ul><li>Parser: <a href="https://github.com/Kaggee/mega-challenges/issues/1">Parse dates in the tenant's locale</a> — closed as completed; fixed for DD/MM in EU locales.</li><li>Booking-v3 hint: <a href="https://github.com/Kaggee/mega-challenges/issues/2">Match the date hint to the tenant locale</a> — closed as not planned; booking-v3 was retired.</li></ul>
   <h2>Since April</h2>
   <figure><svg id="timeline" viewBox="0 0 648 140" role="img" aria-label="reports received and merged into #4471, per week"></svg><figcaption class="muted"><span class="in">■</span> received · <span class="merged">■</span> merged into #4471 · per week</figcaption></figure>
   <h2>Triage notes</h2>

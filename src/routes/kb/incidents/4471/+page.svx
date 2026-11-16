@@ -2,8 +2,8 @@
 layout: runbook
 title: '#4471 · two date bugs in one ticket'
 owner: support desk
-status: known
-reviewed: 2026-10-30
+status: closed
+reviewed: 2026-11-16
 signature: Kaggee
 ---
 
@@ -15,11 +15,13 @@ signature: Kaggee
 </script>
 
 Since April, people have reported bookings landing on the wrong day. The desk merged the
-reports into #4471. The export has overlapping rows, so repeated report IDs are counted once.
+reports into #4471 and closed it on 05 Oct. The export has overlapping rows, so repeated
+report IDs are counted once.
 
-The reports describe two causes. The shared parser reads every date month first, so it flips
-dates for day-first tenants. Separately, booking-v3 tells people to enter month first while
-the form interprets their input in the tenant's day-first locale. These need separate fixes.
+The reports describe two causes. The shared parser read every date month first, so it flipped
+dates for day-first tenants; engineering fixed it to parse DD/MM for EU locales. Separately,
+booking-v3 told people to enter month first while the form interpreted their input in the
+tenant's day-first locale. The form was retired, so the desk closed that issue as won't fix.
 
 <Callout>
 Known reports, split by cause below. Counts use unique report IDs and the tenant's configured
@@ -30,10 +32,10 @@ locale and form, not the intake tag or subject line.
 
 <CauseTable ticket={4471} />
 
-## Follow-up issues
+## Desk outcomes
 
-- Parser: [Parse dates in the tenant's locale](https://github.com/Kaggee/mega-challenges/issues/1).
-- Booking-v3 hint: [Match the date hint to the tenant locale](https://github.com/Kaggee/mega-challenges/issues/2).
+- Parser: [Parse dates in the tenant's locale](https://github.com/Kaggee/mega-challenges/issues/1) — closed as completed; fixed for DD/MM in EU locales.
+- Booking-v3 hint: [Match the date hint to the tenant locale](https://github.com/Kaggee/mega-challenges/issues/2) — closed as not planned; booking-v3 was retired.
 
 ## Since April
 
